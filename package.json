@@ -1,0 +1,31 @@
+{
+    "name": "font-api",
+    "version": "1.0.0",
+    "description": "FOnt buat nama di ppta",
+    "main": "index.js",
+    "scripts": {
+        "test": "node index.js",
+        "build": "node index.js",
+        "dev": "nodemon index.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/pengode-handal/Fontjs-API.git"
+    },
+    "keywords": [
+        "API"
+    ],
+    "author": "Aizu",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/pengode-handal/Fontjs-API/issues"
+    },
+    "homepage": "https://github.com/pengode-handal/Fontjs-API#readme",
+    "dependencies": {
+        "@napi-rs/canvas": "^0.1.52",
+        "canvas": "^2.11.2",
+        "express": "^4.19.2",
+        "image-size": "^1.1.1",
+        "node-gyp": "^10.1.0"
+    }
+}
