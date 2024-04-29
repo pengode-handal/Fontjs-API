@@ -259,6 +259,6 @@ app.get("/api/images/rikka", async function (req, res) {
     );
 });
 // Menjalankan server
-app.listen(port, () => {
-    console.log(`Server listening on port ${port}`);
-});
+app.listen(1337);
+
+module.exports = app;
