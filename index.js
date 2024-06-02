@@ -1,17 +1,20 @@
 const express = require("express");
 const app = express();
 const fs = require("fs");
+const path = require("path");
 const sizeOf = require("image-size");
-const { createCanvas, loadImage } = require("@napi-rs/canvas");
-const { registerFont } = require("canvas");
+const { GlobalFonts, createCanvas, loadImage } = require("@napi-rs/canvas");
+const fontPath = "./fonts/Ruang.ttf";
+GlobalFonts.registerFromPath(path.resolve(fontPath), "Ruang");
 // Menentukan port untuk server
 const port = process.env.PORT || 1337;
-const fontPath = "./fonts/Ruang.ttf";
-registerFont(fontPath, { family: "Ruang" });
-
+// registerFont(path.resolve(fontPath), { family: "Ruang" });
+// console.log(GlobalFonts.families);
 app.get("/api/font", async (req, res) => {
     // Mengambil teks dan ukuran font dari query URL
     const text = req.query.q;
+    const w = req.query.w || 500;
+    const h = req.query.h || 200;
     const color = req.query.color || "black";
     const size = parseInt(req.query.size);
 
@@ -20,7 +23,7 @@ app.get("/api/font", async (req, res) => {
         return;
     }
     // Membuat canvas
-    const canvas = createCanvas(540, 500);
+    const canvas = createCanvas(w, h);
     const ctx = canvas.getContext("2d");
     // Mengatur font
     ctx.font = `${size || 24}px "Ruang"`;
@@ -103,8 +106,8 @@ const menipulatingImages = async (
     ctx.textAlign = textAlign;
     ctx.textBaseline = baseLine;
 
-    ctx.font = `${size}px "Ruang"`;
-    ctx.fillText(text, width, height);
+    ctx.font = `${size}px Ruang`;
+    ctx.fillText(text, parseInt(width), parseInt(height));
 
     const imageData = canvas.toDataURL("image/png");
 
@@ -129,7 +132,7 @@ app.get("/api/images/nadeshiko", async function (req, res) {
     res.contentType("image/png");
     res.send(
         await menipulatingImages(
-            "./images/nadeshiko.jpg",
+            path.resolve("./images/nadeshiko.jpg"),
             size,
             text,
             width,
@@ -156,7 +159,7 @@ app.get("/api/images/paper", async function (req, res) {
     res.contentType("image/png");
     res.send(
         await menipulatingImages(
-            "./images/paper.jpg",
+            path.resolve("./images/paper.jpg"),
             size,
             text,
             width,
@@ -185,7 +188,7 @@ app.get("/api/images/chizuru", async function (req, res) {
     res.contentType("image/png");
     res.send(
         await menipulatingImages(
-            "./images/kyaaa.jpg",
+            path.resolve("./images/kyaaa.jpg"),
             size,
             text,
             width,
@@ -216,7 +219,7 @@ app.get("/api/images/nyot", async function (req, res) {
     res.contentType("image/png");
     res.send(
         await menipulatingImages(
-            "./images/ahh.jpg",
+            path.resolve("./images/ahh.jpg"),
             size,
             text,
             width,
@@ -247,7 +250,7 @@ app.get("/api/images/rikka", async function (req, res) {
     res.contentType("image/png");
     res.send(
         await menipulatingImages(
-            "./images/rikka.png",
+            path.resolve("./images/rikka.png"),
             size,
             text,
             width,
