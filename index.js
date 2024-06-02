@@ -13,8 +13,8 @@ const port = process.env.PORT || 1337;
 app.get("/api/font", async (req, res) => {
     // Mengambil teks dan ukuran font dari query URL
     const text = req.query.q;
-    const w = req.query.w || 500;
-    const h = req.query.h || 200;
+    const w = parseInt(req.query.w) || 500;
+    const h = parseInt(req.query.h) || 200;
     const color = req.query.color || "black";
     const size = parseInt(req.query.size);
 
