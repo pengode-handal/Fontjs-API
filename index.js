@@ -31,7 +31,7 @@ app.get("/api/font", async (req, res) => {
     // Menghapus gambar latar belakang
     const padding = 20;
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.fillStyle = color;
+    ctx.fillStyle = color.replace("=", "#");
     const textWidth = ctx.measureText(text).width; // Lebar teks
     const canvasCenterX = canvas.width / 2;
     const textX = canvasCenterX - textWidth / 2; // Posisi X di tengah - setengah lebar teks
@@ -129,6 +129,7 @@ app.get("/api/images/nadeshiko", async function (req, res) {
         });
         return;
     }
+    console.log(color.replace("=", "#"));
     res.contentType("image/png");
     res.send(
         await menipulatingImages(
