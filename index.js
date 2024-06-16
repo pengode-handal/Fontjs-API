@@ -70,8 +70,9 @@ app.get("/api/font", async (req, res) => {
 
     // // Menulis teks dengan pembungkusan
     // wrapText(ctx, text, maxWidth);
+    ctx.textAlign = "center";
     let y = canvasCenterY - ctx.measureText(text).actualBoundingBoxAscent / 2;
-    ctx.fillText(text, 50, y);
+    ctx.fillText(text, 650 / 2, y);
     const imageData = canvas.toDataURL("image/png");
 
     const imageBuffer = Buffer.from(imageData.split(",")[1], "base64");
