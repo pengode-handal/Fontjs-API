@@ -13,7 +13,7 @@ const port = process.env.PORT || 1337;
 app.get("/api/font", async (req, res) => {
     // Mengambil teks dan ukuran font dari query URL
     const text = req.query.q;
-    const w = parseInt(req.query.w) || 500;
+    const w = parseInt(req.query.w) || 650;
     const h = parseInt(req.query.h) || 200;
     const color = req.query.color || "black";
     const size = parseInt(req.query.size);
@@ -29,7 +29,7 @@ app.get("/api/font", async (req, res) => {
     ctx.font = `${size || 24}px "Ruang"`;
 
     // Menghapus gambar latar belakang
-    const padding = 20;
+    const padding = 30;
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.fillStyle = color.replace("=", "#");
     const textWidth = ctx.measureText(text).width; // Lebar teks
@@ -41,39 +41,37 @@ app.get("/api/font", async (req, res) => {
     const textY = canvasCenterY - textHeight / 2;
     const maxWidth = canvas.width - padding * 2;
     // ctx.fillText(text, X, Y);
-    function wrapText(ctx, text, maxWidth) {
-        let words = text.split(" "); // Memisahkan kata-kata
-        let line = ""; // Baris teks saat ini
-        let y =
-            canvasCenterY - ctx.measureText(text).actualBoundingBoxAscent / 2; // Posisi Y awal
-        let x = padding; // Posisi X awal (dengan padding)
+    // function wrapText(ctx, text, maxWidth) {
+    //     let words = text.split(" "); // Memisahkan kata-kata
+    //     let line = ""; // Baris teks saat ini
+    //     let y =
+    //         canvasCenterY - ctx.measureText(text).actualBoundingBoxAscent / 2; // Posisi Y awal
+    //     let x = padding; // Posisi X awal (dengan padding)
 
-        for (let i = 0; i < words.length; i++) {
-            const word = words[i];
-            const lineWidth = ctx.measureText(line + word).width; // Lebar baris saat ini
+    //     for (let i = 0; i < words.length; i++) {
+    //         const word = words[i];
+    //         const lineWidth = ctx.measureText(line + word).width; // Lebar baris saat ini
 
-            // Memeriksa apakah kata berikutnya akan melebihi lebar maksimum
-            if (lineWidth > maxWidth) {
-                // Menulis baris saat ini
-                ctx.fillText(line, x, y); // Menulis di tengah (dengan padding)
-                y += ctx.measureText(word).actualBoundingBoxAscent; // Pindah ke baris baru
-                x = padding; // Reset posisi X ke awal baris
-                line = word; // Memulai baris baru dengan kata saat ini
-            } else {
-                line += " " + word; // Menambahkan kata ke baris saat ini
-            }
-        }
+    //         // Memeriksa apakah kata berikutnya akan melebihi lebar maksimum
+    //         if (lineWidth > maxWidth) {
+    //             // Menulis baris saat ini
+    //             ctx.fillText(line, x, y); // Menulis di tengah (dengan padding)
+    //             y += ctx.measureText(word).actualBoundingBoxAscent; // Pindah ke baris baru
+    //             x = padding; // Reset posisi X ke awal baris
+    //             line = word; // Memulai baris baru dengan kata saat ini
+    //         } else {
+    //             line += " " + word; // Menambahkan kata ke baris saat ini
+    //         }
+    //     }
 
-        // Menulis baris terakhir
-        ctx.fillText(
-            line,
-            (maxWidth - ctx.measureText(line).width) / 2 + padding,
-            y
-        );
-    }
+    //     // Menulis baris terakhir
 
-    // Menulis teks dengan pembungkusan
-    wrapText(ctx, text, maxWidth);
+    // }
+
+    // // Menulis teks dengan pembungkusan
+    // wrapText(ctx, text, maxWidth);
+    let y = canvasCenterY - ctx.measureText(text).actualBoundingBoxAscent / 2;
+    ctx.fillText(text, 50, y);
     const imageData = canvas.toDataURL("image/png");
 
     const imageBuffer = Buffer.from(imageData.split(",")[1], "base64");

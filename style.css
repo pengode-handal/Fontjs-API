@@ -1,0 +1,40 @@
+html,
+body {
+    margin: 0px;
+    padding: 0px;
+    background-color: black;
+}
+
+@keyframes example {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 100;
+    }
+}
+
+.gambar {
+    background-image: url("poster.png");
+    background-size: contain;
+    background-attachment: fixed;
+    background-position: top;
+    background-repeat: no-repeat;
+    height: 100vh;
+    animation-name: example;
+    animation-duration: 3s;
+    animation-delay: 1s;
+}
+
+@media (max-width: 768px) {
+    .gambar {
+        background-size: contain;
+        background-repeat: no-repeat;
+    }
+}
+@media (max-width: 328px) {
+    .gambar {
+        background-size: cover;
+        background-repeat: no-repeat;
+    }
+}
